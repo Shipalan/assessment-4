@@ -22,6 +22,7 @@ module.exports = {
         res.status(200).send(randomFortune)
     },
     submitName: (req, res) => {
+        console.log(req.body)
         const {fName, lName} = req.body
         let user = {
             fName: fName,

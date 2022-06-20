@@ -3,49 +3,55 @@ const nameContainer = document.getElementById('names')
 
 const complimentBtn = document.getElementById("complimentButton")
 const fortuneBtn = document.getElementById("fortune")
-const nameForm = document.getElementById('nameForm')
+const nameForm = document.getElementById('nameFormSubmit')
 
-const submitName = name => {
-axios.post('http://localhost:4000/api/name/', name)
-.then(function (res) {
-    alert(res.data)
-})
-}
 
-function submitHandler(e) {
-    e.preventDefault()
-
-    let first = document.getElementById('fName')
-    let last = document.getElementById('lName')
-
-    let userObj = {
-        fName: first.value,
-        lName: last.value
-    }
-
-    submitName(userObj)
-
-    first.value = ''
-    last.value = ''
-}
 
 const getCompliment = () => {
     axios.get("http://localhost:4000/api/compliment/")
-        .then(res => {
-            const data = res.data;
-            alert(data);
+    .then(res => {
+        const data = res.data;
+        alert(data);
     });
 };
 const getFortune = () => {
     axios.get("http://localhost:4000/api/fortune/")
-        .then(res => {
-            const data = res.data;
-            alert(data);
+    .then(res => {
+        const data = res.data;
+        alert(data);
     });
 };
 
+const submitName = body => {
+    axios.post('http://localhost:4000/api/name', body)
+    .then(res => {
+            const form = res.body;
+            alert(form)
+        })
+        
+    }
+    
+    function submitHandler(e) {
+        e.preventDefault()
+    
+        let fName = document.querySelector('#fName')
+        let lName = document.querySelector('#lName')
+    
+        let bodyObj = {
+            fName: fName.value,
+            lName: lName.value
+        }
+    
+        submitName(bodyObj)
+    
+        fName.value = ''
+        lName.value = ''
+    }
 
 
-complimentBtn.addEventListener('click', getCompliment)
-fortuneBtn.addEventListener('click', getFortune)
-nameForm.addEventListener('submit', submitHandler)
+
+    complimentBtn.addEventListener('click', getCompliment)
+    fortuneBtn.addEventListener('click', getFortune)
+    nameForm.addEventListener('click', submitName)
+    
+    
