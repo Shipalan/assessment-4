@@ -7,15 +7,29 @@
     <button id="complimentButton">Get a compliment</button>
     <button id="fortune">Get fortune</button>
 
-    <form id="nameForm">
+    <h2>Enter a name</h2>
+    <form id="nameFormSubmit">
       <label for="fName">First Name: </label>
-      <input type="text" name="fName" id="fName">
+      <input type="text" name="fName" id="fName" required>
+
       <label for="lName">Last Name: </label>
-      <input type="text" name="lName" id="lName">
-      <input type="submit" id="nameFormSubmit">
+      <input type="text" name="lName" id="lName" required>
+
+      <input type="submit" value="Submiteth" id="nameFormSubmit">
     </form>
- 
-    <section id="names"></section>
+    
+    
+    <h2>Change First Name</h2>
+    <form id="updateForm">
+      <label for="updateFirst">First Name: </label>
+      <input type="text" name="updateFirst" id="updateFirst" required>
+
+      <label for="newFirst">New First Name</label>
+      <input type="text" name="newFirst" id="newFirst" required>
+
+      <input type="submit" value="Submiteth" id="nameFormSubmit">
+    </form>
+    
 
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

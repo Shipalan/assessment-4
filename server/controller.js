@@ -1,6 +1,6 @@
-const users = require('./db.json')
-
-let globalId = 0
+const dataBase = [
+  
+]
 
 module.exports = {
 
@@ -21,16 +21,18 @@ module.exports = {
 
         res.status(200).send(randomFortune)
     },
-    submitName: (req, res) => {
-        console.log(req.body)
-        const {fName, lName} = req.body
-        let user = {
-            fName: fName,
-            lName: lName,
-            id: globalId
+    createUser: (req, res) => {
+        dataBase.push(req.body)
+        console.log(dataBase)
+        res.status(200).send({success: true})
+    },
+    updateUser: (req, res) => {
+        const name = req.params.name
+        console.log(name)
+        for (let i=0; i<dataBase.length; i++) {
+            if (dataBase[i].name === name) {
+                dataBase[i].name = name         
+            }
         }
-        users.push(user)
-        globalId++
-        res.status(200).send(users)
     }
 }
