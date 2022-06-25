@@ -51,17 +51,23 @@ const submitName = (event) => {
         lastName.value = ''
 }
 
-const update = (event) => {
-    event.preventDefault();
+const delUser = (event) => {
+    event.preventDefault()
 
-    const firstName = updateFirstName.value
-    const newFirst = newFirstName.value
+    const name = nameDelInput.value
 
-    axios.put(baseURL + '/api/updateUser/' + newName)
-    .then((req) => {
-        alert('worked')
+    axios.put('http://localhost:4000/api/delUser/' + name)
+    .then((res) => {
+        if (res.data.success) {
+            console.log('New database looks like: ')
+            console.log(res.data.info)
+        } else {
+            alert('failure')
+        }
     })
+
 }
+    
 
 
  
@@ -70,4 +76,4 @@ const update = (event) => {
     complimentBtn.addEventListener('click', getCompliment)
     fortuneBtn.addEventListener('click', getFortune)
     formElement.addEventListener('submit', submitName)
-    updateForm.addEventListener('submit', update)
+    formDelElement.addEventListener('submit', delUser)
