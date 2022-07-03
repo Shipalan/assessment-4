@@ -26,13 +26,8 @@ module.exports = {
         console.log(dataBase)
         res.status(200).send({success: true})
     },
-    delUser: (req, res) => {
-        const name = req.params.name
-        for(let i=0; i<dataBase.length; i++){
-            if (dataBase[i].name === name) {
-                dataBase.splice(i,1)
-            }
-        }
-        res.status(200).send({success: true, info: dataBase})
+    getUsers: (req, res) => {
+       res.status(200).send(dataBase.data)
     }
+
 }

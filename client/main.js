@@ -51,22 +51,25 @@ const submitName = (event) => {
         lastName.value = ''
 }
 
-const delUser = (event) => {
-    event.preventDefault()
+const getUsers = () => {
+   
+    axios.get(baseURL + '/api/usersList')
+    .then(function (res) {
+        const data = res.data;
+        document.getElementById('userList').innerHTML = data
+        .map(function (users) {
+            return '<li class="row">' + users 
+        })
+        .join("")
+        })
+        .catch(function (err) {
+            document.getElementById('userList').innerHTML =
+            '<li class="text-danger">' + err.message + "</li>"
+        })
 
-    const name = nameDelInput.value
+    };
 
-    axios.put('http://localhost:4000/api/delUser/' + name)
-    .then((res) => {
-        if (res.data.success) {
-            console.log('New database looks like: ')
-            console.log(res.data.info)
-        } else {
-            alert('failure')
-        }
-    })
 
-}
     
 
 
