@@ -29,17 +29,17 @@ const getFortune = () => {
 };
 
 const submitName = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
         
         const first = firstName.value
         const last = lastName.value
 
         const body = {
-            first: first,
-            last: last
+            first_name: first,
+            last_name: last
         }
 
-        axios.post(baseURL + '/api/user', body)
+        axios.post(baseURL + '/api/usersList', body)
         .then((response) => {
             if (response.data.success) {
                 alert('User added')
@@ -49,6 +49,7 @@ const submitName = (event) => {
         })
         firstName.value = ''
         lastName.value = ''
+        
 }
 
 const getUsers = () => {
@@ -56,22 +57,39 @@ const getUsers = () => {
     axios.get(baseURL + '/api/usersList')
     .then(function (res) {
         const data = res.data;
-        document.getElementById('userList').innerHTML = data
-        .map(function (users) {
-            return '<li class="row">' + users 
-        })
-        .join("")
-        })
-        .catch(function (err) {
-            document.getElementById('userList').innerHTML =
+        const userList = document.getElementById('userList')
+        // console.log(data)
+        // document.getElementById('userList').innerHTML = data
+        // .map(function (users) {
+            // return `<li id="${users.id}">` + users.first_name + ' ' + users.last_name + '</li>'
+        // })
+        // .join("")
+
+    for (let i=0; i<data.length; i++){
+        const li = document.createElement("li")
+        li.innerHTML = data[i].first_name + ' ' + data[i].last_name
+        li.id = data[i].id
+        li.addEventListener('click', deleteUser)
+        userList.append(li)
+    }
+     })
+    .catch(function (err) {
+            document.getElementById('usersList').innerHTML =
             '<li class="text-danger">' + err.message + "</li>"
-        })
+     })
 
     };
 
-
+getUsers()
     
-
+const deleteUser = (event) => {
+    // console.log(event.target.id)
+    axios.delete(baseURL + '/api/userDelete', {id:event.target.id})
+    .then(function (res) {
+        alert('User Deleted')
+    })
+    event.target.remove()
+}
 
  
 
@@ -79,4 +97,3 @@ const getUsers = () => {
     complimentBtn.addEventListener('click', getCompliment)
     fortuneBtn.addEventListener('click', getFortune)
     formElement.addEventListener('submit', submitName)
-    formDelElement.addEventListener('submit', delUser)

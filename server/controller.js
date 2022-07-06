@@ -1,6 +1,10 @@
-const dataBase = [
-  
+const dataBase = [ 
+{"id": 400, "first_name": "Alan", "last_name": "Shipley"},
+{"id": 21, "first_name": "Aubrey", "last_name": "Shipley"},
+{"id": 1000, "first_name": "Jaden", "last_name": "Shipley"}
 ]
+
+let maxId = 3
 
 module.exports = {
 
@@ -22,12 +26,28 @@ module.exports = {
         res.status(200).send(randomFortune)
     },
     createUser: (req, res) => {
-        dataBase.push(req.body)
+        const newBody = req.body
+        newBody.id = ++maxId
+        dataBase.push(newBody)
         console.log(dataBase)
         res.status(200).send({success: true})
     },
     getUsers: (req, res) => {
-       res.status(200).send(dataBase.data)
+       res.status(200).send(dataBase)
+    },
+    deleteUser: (req,res) => {
+       const id = req.body.id 
+       console.log(req)
+       let theIndex
+       for (let i=0; i < dataBase.length; i++){
+        console.log(dataBase[i].id)
+        console.log(id)
+        if (dataBase[i].id === id){
+            theIndex = i
+        }
+    }
+    console.log(theIndex)
+    dataBase.splice(theIndex, 1)
     }
 
 }
