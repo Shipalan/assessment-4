@@ -84,7 +84,7 @@ getUsers()
     
 const deleteUser = (event) => {
     // console.log(event.target.id)
-    axios.delete(baseURL + '/api/userDelete', {id:event.target.id})
+    axios.delete(baseURL + '/api/userDelete/' + event.target.id)
     .then(function (res) {
         alert('User Deleted')
     })

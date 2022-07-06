@@ -36,17 +36,13 @@ module.exports = {
        res.status(200).send(dataBase)
     },
     deleteUser: (req,res) => {
-       const id = req.body.id 
-       console.log(req)
+       const id = +req.params.id
        let theIndex
-       for (let i=0; i < dataBase.length; i++){
-        console.log(dataBase[i].id)
-        console.log(id)
+       for (let i=0; i < dataBase.length; i++){        
         if (dataBase[i].id === id){
             theIndex = i
         }
     }
-    console.log(theIndex)
     dataBase.splice(theIndex, 1)
     }
 
